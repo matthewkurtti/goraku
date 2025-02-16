@@ -3,8 +3,6 @@
  * @returns { Promise<void> }
  */
 exports.seed = async function (knex) {
-  // Deletes ALL existing entries
-  // await knex('table_name').del()
   await knex("users").insert([
     {
       id: 1,
