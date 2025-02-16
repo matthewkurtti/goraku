@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary-accent: rgb(217, 4, 41);
+  --color-secondary-accent: rgb(239, 35, 60);
+  --color-primary-monochrome: rgb(237, 242, 244);
+  --color-secondary-monochrome: rgb(141, 153, 174);
+  --color-dark-monochrome: rgb(43, 45, 66);
+}
+
+@layer base {
+  html {
+    @apply text-dark-monochrome;
+    @apply bg-primary-monochrome;
+  }
+}
