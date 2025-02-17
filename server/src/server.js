@@ -128,9 +128,7 @@ app.get("/api/auth/logout", (req, res) => {
 
 // --------------- Routes -----------------------
 
-// cards
-
-// get all cards
+// get all cards of all decks
 
 app.get("/api/card", async (req, res) => {
   try {
@@ -142,8 +140,6 @@ app.get("/api/card", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-// user
 
 // get all deck ids and names of a single user
 app.get("/api/deck/:userId", async (req, res) => {

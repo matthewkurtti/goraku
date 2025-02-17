@@ -5,10 +5,12 @@ import HomePage from "./components/HomePage";
 import DeckPage from "./components/DeckPage";
 import ListOfCardsPage from "./components/ListOfCardsPage";
 import StudyPage from "./components/StudyPage";
+import SignUpPage from "./components/SignUpPage";
+import LoginPage from "./components/LoginPage";
 
 function App() {
   // useStates and variables
-  const [page, setPage] = useState<string>("addnewcard");
+  const [page, setPage] = useState<string>("");
 
   // useEffects
   useEffect(() => {}, [page]);
@@ -25,8 +27,10 @@ function App() {
         <StudyPage />
       ) : page === "addnewcard" ? (
         <AddNewCardPage />
+      ) : page === "signup" ? (
+        <SignUpPage />
       ) : (
-        <p>something went wrong</p>
+        <LoginPage />
       )}
     </>
   );
