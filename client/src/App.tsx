@@ -10,7 +10,7 @@ import LoginPage from "./components/LoginPage";
 
 function App() {
   // useStates and variables
-  const [page, setPage] = useState<string>("");
+  const [page, setPage] = useState<string>("signup");
 
   // useEffects
   useEffect(() => {}, [page]);
