@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@google-cloud/speech": "^6.7.0",
+    "@google-cloud/translate": "^8.5.0",
     "bcrypt": "^5.1.1",
     "connect-pg-simple": "^10.0.0",
     "cors": "^2.8.5",

@@ -188,9 +188,6 @@
 
 // ---------- google api test ---------------------
 
-// Imports the Google Cloud client library
-// import { readFileSync } from "fs";
-// import { SpeechClient } from "@google-cloud/speech";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
@@ -198,11 +195,22 @@ const {
   googleApiSpeechToTextHandler,
 } = require("./googleApiSpeechToTextHandler.js");
 
-const transcription = await googleApiSpeechToTextHandler(
-  "C:/Users/Matthew/OneDrive/Documents/Code-Chrysalis/immersive/solo-mvp/goraku/server/src/test-audio/one-piece-luffy.mp3",
-  "MP3",
-  48000,
-  "ja"
-);
+const { translateText } = require("./googleApiTranslate.js");
 
-console.log(transcription);
+// google speech to text (jp)
+
+// const transcription = await googleApiSpeechToTextHandler(
+//   "C:/Users/Matthew/OneDrive/Documents/Code-Chrysalis/immersive/solo-mvp/goraku/server/src/test-audio/one-piece-luffy.mp3",
+//   "MP3",
+//   48000,
+//   "ja"
+// );
+
+// console.log(transcription);
+
+// google translate api
+
+// const text = '俺はモンキー D ルフィお前らを超えて海賊王になる男だ';
+// const target = 'en';
+
+translateText("俺はモンキー D ルフィお前らを超えて海賊王になる男だ", "en");
