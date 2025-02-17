@@ -189,38 +189,20 @@
 // ---------- google api test ---------------------
 
 // Imports the Google Cloud client library
-import { readFileSync } from "fs";
-import { SpeechClient } from "@google-cloud/speech";
+// import { readFileSync } from "fs";
+// import { SpeechClient } from "@google-cloud/speech";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 
-// Creates a client
-const client = new SpeechClient();
+const {
+  googleApiSpeechToTextHandler,
+} = require("./googleApiSpeechToTextHandler.js");
 
-/**
- * TODO(developer): Uncomment the following lines before running the sample.
- */
-const filename =
-  "C:/Users/Matthew/OneDrive/Documents/Code-Chrysalis/immersive/solo-mvp/goraku/server/src/test-audio/one-piece-zoro-audio.mp3"; // C:\Users\Matthew\OneDrive\Documents\Code-Chrysalis\immersive\solo-mvp\goraku\server\src\test-audio\one-piece-zoro-audio.mp3
-const encoding = "MP3";
-const sampleRateHertz = 44100;
-const languageCode = "ja";
+const transcription = await googleApiSpeechToTextHandler(
+  "C:/Users/Matthew/OneDrive/Documents/Code-Chrysalis/immersive/solo-mvp/goraku/server/src/test-audio/one-piece-luffy.mp3",
+  "MP3",
+  48000,
+  "ja"
+);
 
-const config = {
-  encoding: encoding,
-  sampleRateHertz: sampleRateHertz,
-  languageCode: languageCode,
-};
-const audio = {
-  content: readFileSync(filename).toString("base64"),
-};
-
-const request = {
-  config: config,
-  audio: audio,
-};
-
-// Detects speech in the audio file
-const [response] = await client.recognize(request);
-const transcription = response.results
-  .map((result) => result.alternatives[0].transcript)
-  .join("\n");
-console.log("Transcription: ", transcription);
+console.log(transcription);
