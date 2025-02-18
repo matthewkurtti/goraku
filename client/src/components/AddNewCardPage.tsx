@@ -2,17 +2,23 @@
 // const require = createRequire(import.meta.url);
 
 import NavBar from "./NavBar";
-// import { useRef } from "react";
+import { useState, useEffect } from "react";
 // import { readFileSync } from "fs";
 import { fetchSpeechToText } from "../helpers/fetchHelper";
 
 function AddNewCardPage() {
   // variables
+  const [front, setFront] = useState<string>("front");
+  const [back, setBack] = useState<string>("back");
+
   // const audioRef = useRef(null);
   const url: string = "http://localhost:8080/";
 
+  useEffect(() => {}, [front]);
+
   // handler
   const handleAudioSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    // first, make front of card using google speech to text
     event.preventDefault();
     const audioInput = document.getElementById(
       "audioInput"
@@ -39,7 +45,10 @@ function AddNewCardPage() {
         };
 
         const response = await fetchSpeechToText(url, body);
-        console.log(await response?.text());
+        const newFront = await response?.text();
+        if (newFront) {
+          setFront(newFront);
+        }
       },
       false
     );
@@ -47,6 +56,8 @@ function AddNewCardPage() {
     if (audio) {
       reader.readAsDataURL(audio);
     }
+
+    // next, make back using google translate api
   };
 
   return (
@@ -67,10 +78,13 @@ function AddNewCardPage() {
             Submit
           </button>
         </form>
-        <h2>Front</h2>
-        <div className="w-1/2 bg-white">(empty) </div>
-        <h2>Back</h2>
-        <div className="w-1/2 bg-white">(empty)</div>
+        <form className="w-3/4" action="">
+          <label htmlFor="">Front: </label>
+          <textarea className="bg-white m-3 w-1/3" value={front} />
+          <label htmlFor="">Back: </label>
+          <textarea className="bg-white m-3 w-1/3" value={back} />
+          <button className="bg-white">Add new card</button>
+        </form>
       </main>
     </>
   );
