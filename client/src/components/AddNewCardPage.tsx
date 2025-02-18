@@ -16,7 +16,7 @@ function AddNewCardPage() {
 
   useEffect(() => {}, [front]);
 
-  // handler
+  // handlers
   const handleAudioSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const audioInput = document.getElementById(
@@ -71,6 +71,8 @@ function AddNewCardPage() {
     }
   };
 
+  const handleAddingNewCard = () => {};
+
   return (
     <>
       <NavBar />
@@ -89,12 +91,14 @@ function AddNewCardPage() {
             Submit
           </button>
         </form>
-        <form className="w-3/4" action="">
+        <form onSubmit={handleAddingNewCard} className="w-3/4" action="">
           <label htmlFor="">Front: </label>
           <textarea className="bg-white m-3 w-1/3" value={front} />
           <label htmlFor="">Back: </label>
           <textarea className="bg-white m-3 w-1/3" value={back} />
-          <button className="bg-white">Add new card</button>
+          <button className="bg-white" type="submit">
+            Add new card
+          </button>
         </form>
       </main>
     </>

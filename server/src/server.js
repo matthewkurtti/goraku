@@ -61,15 +61,17 @@ app.post("/api/auth/register", async (req, res) => {
   try {
     const { username, password, email } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
+    const [maxIdObj] = await knex("users").max("id");
+    const newId = maxIdObj.max + 1;
 
     const [newUser] = await knex("users")
       .insert({
+        id: newId,
         username,
         password: hashedPassword,
         email,
       })
       .returning(["id", "username", "email"]);
-
     res
       .status(201)
       .json({ message: "User registered successfully", user: newUser });
