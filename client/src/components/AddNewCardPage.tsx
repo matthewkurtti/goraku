@@ -4,7 +4,7 @@
 import NavBar from "./NavBar";
 import { useState, useEffect } from "react";
 // import { readFileSync } from "fs";
-import { fetchSpeechToText } from "../helpers/fetchHelper";
+import { fetchSpeechToText, fetchTranslation } from "../helpers/fetchHelper";
 
 function AddNewCardPage() {
   // variables
@@ -18,7 +18,6 @@ function AddNewCardPage() {
 
   // handler
   const handleAudioSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    // first, make front of card using google speech to text
     event.preventDefault();
     const audioInput = document.getElementById(
       "audioInput"
@@ -31,6 +30,7 @@ function AddNewCardPage() {
     reader.addEventListener(
       "load",
       async () => {
+        // first, make front of card using google speech to text
         const initialResult = reader.result;
         base64AudioFile = initialResult?.slice(23);
         const sampleRateHertz = 48000;
@@ -49,6 +49,19 @@ function AddNewCardPage() {
         if (newFront) {
           setFront(newFront);
         }
+        // next, make back of card using google translate api
+        const tranlateObjBody = {
+          text: newFront,
+          target: "en",
+        };
+        const translationResponse = await fetchTranslation(
+          url,
+          tranlateObjBody
+        );
+        const newBack = await translationResponse?.text();
+        if (newBack) {
+          setBack(newBack);
+        }
       },
       false
     );
@@ -56,8 +69,6 @@ function AddNewCardPage() {
     if (audio) {
       reader.readAsDataURL(audio);
     }
-
-    // next, make back using google translate api
   };
 
   return (
