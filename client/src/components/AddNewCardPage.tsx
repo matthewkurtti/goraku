@@ -27,9 +27,7 @@ function AddNewCardPage() {
       async () => {
         const initialResult = reader.result;
         base64AudioFile = initialResult?.slice(23);
-        // console.log(initialResult);
         const sampleRateHertz = 48000;
-        // const content = base64AudioFile;
         const encoding = "MP3";
         const languageCode = "ja";
 
@@ -39,7 +37,6 @@ function AddNewCardPage() {
           sampleRateHertz: sampleRateHertz,
           languageCode: languageCode,
         };
-        // console.log(body);
 
         const response = await fetchSpeechToText(url, body);
         console.log(await response?.text());
