@@ -11,7 +11,7 @@ import { User } from "./globalTypes";
 
 function App() {
   // useStates and variables
-  const [page, setPage] = useState<string>("signup");
+  const [page, setPage] = useState<string>("addnewcard");
   const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
 
   // useEffects
