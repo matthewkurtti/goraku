@@ -67,3 +67,19 @@ export const postData = async (
     console.error("Error posting data ", error);
   }
 };
+
+export const fetchSpeechToText = async (url: string, body: object) => {
+  try {
+    // console.log(body);
+
+    const response = await fetch(`${url}api/speechtotext`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    return response;
+  } catch (error) {
+    console.error("Error getting data ", error);
+  }
+};

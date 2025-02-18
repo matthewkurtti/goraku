@@ -1,9 +1,9 @@
 // Imports the Google Cloud client library
-const fs = require("fs");
+// const fs = require("fs");
 const speech = require("@google-cloud/speech");
 
 const googleApiSpeechToTextHandler = async (
-  filename,
+  content,
   encoding,
   sampleRateHertz,
   languageCode
@@ -17,7 +17,8 @@ const googleApiSpeechToTextHandler = async (
     languageCode: languageCode,
   };
   const audio = {
-    content: fs.readFileSync(filename).toString("base64"),
+    content: content,
+    // content: fs.readFileSync(filename).toString("base64"),
   };
 
   const request = {

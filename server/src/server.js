@@ -11,6 +11,7 @@ const path = require("path");
 const session = require("express-session");
 const pgSession = require("connect-pg-simple")(session);
 const bcrypt = require("bcrypt");
+// const bodyParser = require("body-parser");
 
 // google api imports
 import { createRequire } from "module";
@@ -37,7 +38,8 @@ if (!process.env.NODE_ENV) {
   app.use("/", express.static(path.join(__dirname, "../../client/dist")));
 }
 
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb" }));
 
 app.use(
   session({
@@ -195,12 +197,14 @@ app.get("/api/card/:deckId", async (req, res) => {
 });
 
 // google speech to text route
-app.get("/api/speechtotext", async (req, res) => {
+app.post("/api/speechtotext", async (req, res) => {
   try {
-    console.log(req.body);
-    const { filename, encoding, sampleRateHertz, languageCode } = req.body;
+    const { content, encoding, sampleRateHertz, languageCode } = req.body;
+
+    // console.log(req.body);
+
     const transcription = await googleApiSpeechToTextHandler(
-      filename,
+      content,
       encoding,
       sampleRateHertz,
       languageCode
