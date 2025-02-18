@@ -216,6 +216,19 @@ app.post("/api/speechtotext", async (req, res) => {
   }
 });
 
+// google translate route
+app.post("/api/translate", async (req, res) => {
+  try {
+    const { text, target } = req.body;
+    const translationsArr = await translateText(text, target);
+    const translation = translationsArr[0];
+    res.json(translation);
+  } catch (error) {
+    console.error("Error: ", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // --------------- Start the server ---------------------
 
 app.listen(port, () => {
