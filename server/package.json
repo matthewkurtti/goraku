@@ -12,7 +12,7 @@
     "migrate-down": "npx knex migrate:down --knexfile ./knexfile.js",
     "make-seed": "npx knex seed:make",
     "seed-data": "npx knex seed:run --knexfile ./knexfile.js",
-    "build": "npm install"
+    "build": "npx knex migrate:latest --knexfile ./knexfile.js && npx knex seed:run --knexfile ./knexfile.js"
   },
   "repository": {
     "type": "git",
