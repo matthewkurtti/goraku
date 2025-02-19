@@ -6,16 +6,18 @@ import DeckPage from "./components/DeckPage";
 import ListOfCardsPage from "./components/ListOfCardsPage";
 import StudyPage from "./components/StudyPage";
 import SignUpPage from "./components/SignUpPage";
-import LoginPage from "./components/LoginPage";
-import { User } from "./globalTypes";
+// import LoginPage from "./components/LoginPage";
+// import { User } from "./globalTypes";
 
 function App() {
   // useStates and variables
   const [page, setPage] = useState<string>("addnewcard");
-  const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
+  // const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
 
   // useEffects
-  useEffect(() => {}, [page]);
+  useEffect(() => {
+    setPage("homepage");
+  }, [page]);
 
   return (
     <>
@@ -32,7 +34,7 @@ function App() {
       ) : page === "signup" ? (
         <SignUpPage />
       ) : (
-        <LoginPage setPage={setPage} />
+        <p>login page</p>
       )}
     </>
   );

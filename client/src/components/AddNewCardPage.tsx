@@ -12,7 +12,8 @@ function AddNewCardPage() {
   const [back, setBack] = useState<string>("back");
 
   // const audioRef = useRef(null);
-  const url: string = "http://localhost:8080/";
+  const url: string =
+    process.env.NODE_ENV === "production" ? "/" : "http://localhost:8080/";
 
   useEffect(() => {}, [front]);
 

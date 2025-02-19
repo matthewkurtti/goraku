@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { JSX } from "react/jsx-runtime";
 
 type LoginPageProps = {
   setPage: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
 };
 
-const LoginPage: React.FC<LoginPageProps> = (props) => {
+const LoginPage: React.FC<LoginPageProps> = () => {
   // changes database target URL depending on current environment
-  const url: string =
-    import.meta.env.MODE === "development" ? "http://localhost:8080/" : "/";
+  // const url: string =
+  //   import.meta.env.MODE === "development" ? "http://localhost:8080/" : "/";
 
   // useStates and variables
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  // const [email, setEmail] = useState<string>("");
+  // const [password, setPassword] = useState<string>("");
+  // const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   return (
     <>
