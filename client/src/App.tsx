@@ -6,35 +6,58 @@ import DeckPage from "./components/DeckPage";
 import ListOfCardsPage from "./components/ListOfCardsPage";
 import StudyPage from "./components/StudyPage";
 import SignUpPage from "./components/SignUpPage";
-// import LoginPage from "./components/LoginPage";
-// import { User } from "./globalTypes";
+import LoginPage from "./components/LoginPage";
+import { User } from "./globalTypes";
+import { getData } from "./helpers/fetchHelper";
 
 function App() {
   // useStates and variables
-  const [page, setPage] = useState<string>("addnewcard");
-  // const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
+  const url: string =
+    process.env.NODE_ENV === "production" ? "/" : "http://localhost:8080/";
+  const [page, setPage] = useState<string>("");
+  const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
+
+  // helper function
+
+  // check to see if the user has a valid session token on page load
+  const checkIfLoggedIn = async () => {
+    const result = await getData(url, "api/auth/user");
+
+    if (
+      result.message === "Unauthorized" ||
+      result.message === "User not found"
+    ) {
+      setLoggedInUser(null);
+    } else {
+      setLoggedInUser(result);
+    }
+  };
 
   // useEffects
   useEffect(() => {
-    setPage("addnewcard");
+    checkIfLoggedIn();
+  }, []);
+
+  useEffect(() => {
+    checkIfLoggedIn();
   }, [page]);
 
   return (
     <>
-      {page === "homepage" ? (
+      {page === "homepage" && loggedInUser ? (
         <HomePage />
-      ) : page === "deckpage" ? (
+      ) : page === "deckpage" && loggedInUser ? (
         <DeckPage />
-      ) : page === "listofcards" ? (
+      ) : page === "listofcards" && loggedInUser ? (
         <ListOfCardsPage />
-      ) : page === "study" ? (
+      ) : page === "study" && loggedInUser ? (
         <StudyPage />
-      ) : page === "addnewcard" ? (
+      ) : page === "addnewcard" && loggedInUser ? (
         <AddNewCardPage />
       ) : page === "signup" ? (
         <SignUpPage />
       ) : (
-        <p>login page</p>
+        <LoginPage setPage={setPage} setLoggedInUser={setLoggedInUser} />
       )}
     </>
   );

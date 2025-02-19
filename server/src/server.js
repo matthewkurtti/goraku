@@ -106,9 +106,10 @@ app.post("/api/auth/login", async (req, res) => {
     req.session.username = user.username;
 
     res.json({
-      message: "Login succesful",
+      message: "Login successful",
       userId: req.session.userId,
       username: req.session.username,
+      email: user.email,
     });
   } catch (error) {
     console.error("Database connection error.", error);
@@ -156,21 +157,25 @@ app.get("/api/auth/logout", (req, res) => {
 
 // get all cards of all decks
 
-app.get("/api/card", async (req, res) => {
-  try {
-    const card = await knex.select("*").from("card").limit(100);
+// app.get("/api/card", async (req, res) => {
+//   try {
+//     const card = await knex.select("*").from("card").limit(100);
 
-    res.json({ card });
-  } catch (error) {
-    console.error("Database connection error:", error);
-    res.status(500).json({ error: error.message });
-  }
-});
+//     res.json({ card });
+//   } catch (error) {
+//     console.error("Database connection error:", error);
+//     res.status(500).json({ error: error.message });
+//   }
+// });
 
 // get all deck ids and names of a single user
 app.get("/api/deck/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
+    if (req.session.userId != userId) {
+      // make sure user who's information is requested is logged in
+      return res.status(401).json({ message: "Unauthorized" });
+    }
     const userDecks = await knex
       .select("id", "name")
       .from("deck")
@@ -184,8 +189,13 @@ app.get("/api/deck/:userId", async (req, res) => {
 });
 
 // get all cards of a single deck by deck id
-app.get("/api/card/:deckId", async (req, res) => {
+app.get("/api/card/:userId/:deckId", async (req, res) => {
   try {
+    const userId = req.params.userId;
+    if (req.session.userId != userId) {
+      // make sure user who's information is requested is logged in
+      return res.status(401).json({ message: "Unauthorized" });
+    }
     const deckId = req.params.deckId;
     const allCardsIdsInDeck = await knex
       .select("id")
@@ -205,6 +215,8 @@ app.get("/api/card/:deckId", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+// post:
 
 // google speech to text route
 app.post("/api/speechtotext", async (req, res) => {

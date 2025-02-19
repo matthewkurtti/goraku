@@ -1,19 +1,49 @@
 import React from "react";
 import { JSX } from "react/jsx-runtime";
+import { postData } from "../helpers/fetchHelper";
 
 type LoginPageProps = {
   setPage: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
+  setLoggedInUser: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
 };
 
-const LoginPage: React.FC<LoginPageProps> = () => {
+const LoginPage: React.FC<LoginPageProps> = (props) => {
   // changes database target URL depending on current environment
-  // const url: string =
-  //   import.meta.env.MODE === "development" ? "http://localhost:8080/" : "/";
+  const url: string =
+    import.meta.env.MODE === "development" ? "http://localhost:8080/" : "/";
 
   // useStates and variables
-  // const [email, setEmail] = useState<string>("");
-  // const [password, setPassword] = useState<string>("");
-  // const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // handlers
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const usernameInput = document.getElementById(
+      "username"
+    ) as HTMLInputElement;
+    const givenUsername = usernameInput.value;
+
+    const passwordInput = document.getElementById(
+      "password"
+    ) as HTMLInputElement;
+    const givenPassword = passwordInput.value;
+
+    const loginReqObjBody = {
+      username: givenUsername,
+      password: givenPassword,
+    };
+
+    const response = await postData(url, "api/auth/login", loginReqObjBody);
+    console.log(response);
+    if (response.message === "Login successful") {
+      const newLoggedInUserObj = {
+        id: response.id,
+        username: response.username,
+        email: response.email,
+      };
+      props.setLoggedInUser(newLoggedInUserObj);
+      props.setPage("homepage");
+    }
+  };
 
   return (
     <>
@@ -25,12 +55,18 @@ const LoginPage: React.FC<LoginPageProps> = () => {
           </div>
           <div className="w-1/2 h-full flex flex-col items-center border-black border-solid border-1 p-5">
             <h1 className="text-4xl">Login</h1>
-            <form className="flex flex-col p-3" action="">
-              <label htmlFor="">Email: </label>
-              <input className="bg-white" type="text" />
+            <form
+              onSubmit={handleLogin}
+              className="flex flex-col p-3"
+              action=""
+            >
+              <label htmlFor="">Username: </label>
+              <input id="username" className="bg-white" type="text" />
               <label htmlFor="">Password</label>
-              <input className="bg-white" type="text" />
-              <button className="bg-secondary-accent m-2">Submit</button>
+              <input id="password" className="bg-white" type="text" />
+              <button className="bg-secondary-accent m-2" type="submit">
+                Submit
+              </button>
             </form>
           </div>
         </div>
