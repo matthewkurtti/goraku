@@ -16,7 +16,7 @@ function App() {
 
   // useEffects
   useEffect(() => {
-    setPage("homepage");
+    setPage("addnewcard");
   }, [page]);
 
   return (
