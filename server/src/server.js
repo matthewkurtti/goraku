@@ -217,10 +217,10 @@ app.get("/api/card/:userId/:deckId", async (req, res) => {
 });
 
 // post: add new deck to user's decks
-app.post("/api/deck/:userId/:newDeckName", async (req, res) => {
+app.post("/api/deck/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
-    const deckName = req.params.newDeckName;
+    const { deckName } = req.body;
     if (req.session.userId != userId) {
       // make sure user who's information is requested is logged in
       return res.status(401).json({ message: "Unauthorized" });
@@ -242,7 +242,49 @@ app.post("/api/deck/:userId/:newDeckName", async (req, res) => {
   }
 });
 
-// post: add new card to user's deck
+// post: add new card to card table and make new deck card reference to know which deck card is in
+app.post("/api/card/:deckId/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const deckId = req.params.deckId;
+    const { front, back } = req.body;
+    if (req.session.userId != userId) {
+      // make sure user who's information is requested is logged in
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    const [maxIdObj] = await knex("card").max("id");
+    const newId = maxIdObj.max + 1;
+
+    // add the new card to card table
+    const [newCard] = await knex("card")
+      .insert({
+        id: newId,
+        front: front,
+        back: back,
+      })
+      .returning(["id", "front", "back"]);
+
+    // add the card id and deck id to deck_card table to reference which deck card is in
+    const [otherMaxIdObj] = await knex("deck_card").max("id");
+    const otherNewId = otherMaxIdObj.max + 1;
+    const [newDeckCardReference] = await knex("deck_card")
+      .insert({
+        id: otherNewId,
+        deck_id: deckId,
+        card_id: newId,
+      })
+      .returning(["id", "deck_id", "card_id"]);
+
+    res.status(201).json({
+      message: "Card added successfully",
+      card: newCard,
+      deckCardReference: newDeckCardReference,
+    });
+  } catch (error) {
+    console.error("Database connection error:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
 
 // google speech to text route
 app.post("/api/speechtotext", async (req, res) => {
