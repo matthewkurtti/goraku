@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm i --save @types/react && npm i --save @types/react-dom && tsc -b && vite build",
+    "build": "npm i --save-dev @types/react && npm i --save-dev @types/react-dom && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
