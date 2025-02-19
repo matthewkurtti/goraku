@@ -105,7 +105,11 @@ app.post("/api/auth/login", async (req, res) => {
     req.session.userId = user.id;
     req.session.username = user.username;
 
-    res.json({ message: "Login succesful" });
+    res.json({
+      message: "Login succesful",
+      userId: req.session.userId,
+      username: req.session.username,
+    });
   } catch (error) {
     console.error("Database connection error.", error);
     res.status(500).json({ error: error.message });
