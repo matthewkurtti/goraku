@@ -9,6 +9,7 @@ import SignUpPage from "./components/SignUpPage";
 import LoginPage from "./components/LoginPage";
 import { User } from "./globalTypes";
 import { getData } from "./helpers/fetchHelper";
+import NavBar from "./components/NavBar";
 
 function App() {
   // useStates and variables
@@ -45,7 +46,11 @@ function App() {
   return (
     <>
       {page === "homepage" && loggedInUser ? (
-        <HomePage />
+        <HomePage
+          setPage={setPage}
+          setLoggedInUser={setLoggedInUser}
+          loggedInUser={loggedInUser}
+        />
       ) : page === "deckpage" && loggedInUser ? (
         <DeckPage />
       ) : page === "listofcards" && loggedInUser ? (

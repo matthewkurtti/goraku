@@ -216,7 +216,33 @@ app.get("/api/card/:userId/:deckId", async (req, res) => {
   }
 });
 
-// post:
+// post: add new deck to user's decks
+app.post("/api/deck/:userId/:newDeckName", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const deckName = req.params.newDeckName;
+    if (req.session.userId != userId) {
+      // make sure user who's information is requested is logged in
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    const [maxIdObj] = await knex("deck").max("id");
+    const newId = maxIdObj.max + 1;
+
+    const [newDeck] = await knex("deck")
+      .insert({
+        id: newId,
+        name: deckName,
+        users_id: userId,
+      })
+      .returning(["id", "name", "users_id"]);
+    res.status(201).json({ message: "Deck added successfully", deck: newDeck });
+  } catch (error) {
+    console.error("Database connection error:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// post: add new card to user's deck
 
 // google speech to text route
 app.post("/api/speechtotext", async (req, res) => {
