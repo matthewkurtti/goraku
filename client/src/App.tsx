@@ -44,6 +44,8 @@ function App() {
     console.log(cards);
   }, [page]);
 
+  useEffect(() => {}, [decks]);
+
   return (
     <>
       {page === "homepage" && loggedInUser ? (
@@ -69,7 +71,7 @@ function App() {
             setLoggedInUser={setLoggedInUser}
             loggedInUser={loggedInUser}
           />
-          <DeckPage selectedDeck={selectedDeck} setCards={setCards} />
+          <DeckPage selectedDeck={selectedDeck} setPage={setPage} />
         </>
       ) : page === "listofcards" && loggedInUser ? (
         <>

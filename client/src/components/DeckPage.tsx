@@ -4,7 +4,7 @@ import { Deck } from "../globalTypes";
 
 type DeckPageProps = {
   selectedDeck: Deck | null;
-  setCards: Function;
+  setPage: Function;
 };
 
 const DeckPage: React.FC<DeckPageProps> = (props) => {
@@ -19,7 +19,33 @@ const DeckPage: React.FC<DeckPageProps> = (props) => {
 
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Deck Page</h1>
+      <main className="flex flex-col items-center p-5">
+        <h1 className="text-2xl m-1 p-1">{props.selectedDeck?.name}</h1>
+        <div
+          onClick={() => {
+            props.setPage("listofcards");
+          }}
+          className="bg-white flex justify-center items-center w-1/3 m-2 p-2 border-black border-line border-1 hover:border-secondary-accent cursor-pointer"
+        >
+          <p>List of cards</p>
+        </div>
+        <div
+          onClick={() => {
+            props.setPage("addnewcard");
+          }}
+          className="bg-white flex justify-center items-center w-1/3 m-2 p-2 border-black border-line border-1 hover:border-secondary-accent cursor-pointer"
+        >
+          <p>Add new card</p>
+        </div>
+        <div
+          onClick={() => {
+            props.setPage("study");
+          }}
+          className="bg-white flex justify-center items-center w-1/3 m-2 p-2 border-black border-line border-1 hover:border-secondary-accent cursor-pointer"
+        >
+          <p>Study</p>
+        </div>
+      </main>
     </>
   );
 };

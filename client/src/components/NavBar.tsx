@@ -31,7 +31,7 @@ const NavBar: React.FC<NavBarProps> = (props) => {
         >
           GoRaku
         </h1>
-        <h1 className="text-3x1">Welcome {props.loggedInUser?.username}</h1>
+        <h1 className="text-4xl">Welcome {props.loggedInUser?.username}</h1>
         <h1 onClick={handleLogOut} className="text-3xl cursor-pointer">
           Logout
         </h1>
