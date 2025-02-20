@@ -10,6 +10,6 @@ GoRaku aims to assist language learners who enjoy watching shows or anime in the
 
 ## Try it out here ⬇️
 
-### [GoRaku] (https://goraku-kusp.onrender.com) 
+### [GoRaku](https://goraku-kusp.onrender.com) 
 
 
