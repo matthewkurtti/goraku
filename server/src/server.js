@@ -206,7 +206,7 @@ app.get("/api/card/:userId/:deckId", async (req, res) => {
     const allCards = [];
     for (let i = 0; i < allCardsIdsInDeck.length; i++) {
       const card = await knex
-        .select("front", "back")
+        .select("id", "front", "back")
         .from("card")
         .where({ id: allCardsIdsInDeck[i].id });
       allCards.push(card[0]);

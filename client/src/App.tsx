@@ -71,11 +71,16 @@ function App() {
             setLoggedInUser={setLoggedInUser}
             loggedInUser={loggedInUser}
           />
-          <DeckPage selectedDeck={selectedDeck} setPage={setPage} />
+          <DeckPage
+            selectedDeck={selectedDeck}
+            setPage={setPage}
+            setCards={setCards}
+            loggedInUser={loggedInUser}
+          />
         </>
       ) : page === "listofcards" && loggedInUser ? (
         <>
-          <ListOfCardsPage />
+          <ListOfCardsPage cards={cards} />
         </>
       ) : page === "study" && loggedInUser ? (
         <>
