@@ -80,7 +80,12 @@ function App() {
         </>
       ) : page === "listofcards" && loggedInUser ? (
         <>
-          <ListOfCardsPage cards={cards} />
+          <NavBar
+            setPage={setPage}
+            setLoggedInUser={setLoggedInUser}
+            loggedInUser={loggedInUser}
+          />
+          <ListOfCardsPage cards={cards} selectedDeck={selectedDeck} />
         </>
       ) : page === "study" && loggedInUser ? (
         <>
