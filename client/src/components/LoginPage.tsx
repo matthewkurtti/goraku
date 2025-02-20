@@ -11,7 +11,7 @@ type LoginPageProps = {
 const LoginPage: React.FC<LoginPageProps> = (props) => {
   // changes database target URL depending on current environment
   const url: string =
-    import.meta.env.MODE === "development" ? "http://localhost:8080/" : "/";
+    process.env.NODE_ENV === "production" ? "/" : "http://localhost:8080/";
 
   // useStates and variables
 
