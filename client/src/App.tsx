@@ -44,7 +44,9 @@ function App() {
     console.log(cards);
   }, [page]);
 
-  useEffect(() => {}, [decks]);
+  useEffect(() => {
+    console.log("new deck added");
+  }, [decks]);
 
   return (
     <>
@@ -93,7 +95,15 @@ function App() {
         </>
       ) : page === "addnewcard" && loggedInUser ? (
         <>
-          <AddNewCardPage />
+          <NavBar
+            setPage={setPage}
+            setLoggedInUser={setLoggedInUser}
+            loggedInUser={loggedInUser}
+          />
+          <AddNewCardPage
+            selectedDeck={selectedDeck}
+            loggedInUser={loggedInUser}
+          />
         </>
       ) : page === "signup" ? (
         <SignUpPage

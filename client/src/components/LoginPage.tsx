@@ -63,7 +63,7 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
     <>
       <main className="w-full h-dvh flex justify-center items-center">
         <div className="bg-secondary-monochrome flex items-center w-2/3 h-2/3 ">
-          <div className="flex flex-col justify-around items-center w-1/2 h-full border-primary-accent border-solid border-1">
+          <div className="flex flex-col justify-around items-center w-1/2 h-full border-black border-solid border-1">
             <h1 className="text-5xl">GoRaku</h1>
             <h1>(Logo goes here)</h1>
           </div>
@@ -75,11 +75,15 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
               action=""
             >
               <label htmlFor="">Username: </label>
-              <input id="username" className="bg-white" type="text" />
+              <input id="username" className="bg-white m-2 p-1" type="text" />
               <label htmlFor="">Password</label>
-              <input id="password" className="bg-white" type="text" />
+              <input
+                id="password"
+                className="bg-white m-2 p-1"
+                type="password"
+              />
               <button
-                className="bg-secondary-accent m-2 cursor-pointer"
+                className="bg-neutral-300 m-2 p-1 cursor-pointer hover:bg-secondary-accent"
                 type="submit"
               >
                 Submit

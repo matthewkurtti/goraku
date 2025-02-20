@@ -61,7 +61,7 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
     <>
       <main className="w-full h-dvh flex justify-center items-center">
         <div className="bg-secondary-monochrome flex items-center w-2/3 h-2/3 ">
-          <div className="flex flex-col justify-around items-center w-1/2 h-full border-primary-accent border-solid border-1">
+          <div className="flex flex-col justify-around items-center w-1/2 h-full border-black border-solid border-1">
             <h1 className="text-5xl">GoRaku</h1>
             <h1>(Logo goes here)</h1>
           </div>
@@ -73,14 +73,25 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
               onSubmit={handleSignUp}
             >
               <label htmlFor="">Username: </label>
-              <input className="bg-white" type="text" id="username" />
+              <input className="bg-white m-2 p-1" type="text" id="username" />
               <label htmlFor="">Email: </label>
-              <input className="bg-white" type="text" id="email" />
+              <input className="bg-white m-2 p-1" type="text" id="email" />
               <label htmlFor="">Password: </label>
-              <input className="bg-white" type="text" id="password" />
+              <input
+                className="bg-white m-2 p-1 "
+                type="password"
+                id="password"
+              />
               <label htmlFor="">Confirm Password: </label>
-              <input className="bg-white" type="text" id="confirmpassword" />
-              <button className="bg-secondary-accent m-2" type="submit">
+              <input
+                className="bg-white m-2 p-1"
+                type="password"
+                id="confirmpassword"
+              />
+              <button
+                className="bg-neutral-300 m-2 p-1 hover:bg-secondary-accent cursor-pointer"
+                type="submit"
+              >
                 Submit
               </button>
             </form>

@@ -21,6 +21,10 @@ const HomePage: React.FC<HomePageProps> = (props) => {
     getDecks();
   }, []);
 
+  useEffect(() => {
+    console.log("new deck added");
+  }, [props.decks]);
+
   // handlers
 
   const getDecks = async () => {
@@ -48,7 +52,6 @@ const HomePage: React.FC<HomePageProps> = (props) => {
       `api/deck/${props.loggedInUser?.id}`,
       reqObj
     );
-    console.log(response);
     if (response.message === "Deck added successfully") {
       const newDecks = props.decks;
       newDecks?.push(response.deck);

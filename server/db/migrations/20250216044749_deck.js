@@ -5,7 +5,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("deck", function (table) {
     table.increments("id").primary();
-    table.string("name").notNullable().unique();
+    table.string("name").notNullable();
     table.integer("users_id").references("users.id").notNullable;
   });
 };
