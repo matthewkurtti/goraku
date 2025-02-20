@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
-import { JSX } from "react/jsx-runtime";
 import { getData, postData } from "../helpers/fetchHelper";
 import { User } from "../globalTypes";
 
 type LoginPageProps = {
-  setPage: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
-  setLoggedInUser: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
+  setPage: Function;
+  setLoggedInUser: Function;
   loggedInUser: User | null;
 };
 

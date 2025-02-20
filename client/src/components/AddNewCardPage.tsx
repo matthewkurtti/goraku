@@ -1,7 +1,6 @@
 // import { createRequire } from "module";
 // const require = createRequire(import.meta.url);
 
-import NavBar from "./NavBar";
 import { useState, useEffect } from "react";
 // import { readFileSync } from "fs";
 import { fetchSpeechToText, fetchTranslation } from "../helpers/fetchHelper";
@@ -76,7 +75,6 @@ function AddNewCardPage() {
 
   return (
     <>
-      <NavBar />
       <main className="border-solid border-black border-1 h-dvh flex flex-col items-center">
         <h1 className="m-3 text-3xl font-bold underline ">Add New Card Page</h1>
         <form onSubmit={handleAudioSubmit}>

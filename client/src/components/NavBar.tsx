@@ -1,10 +1,9 @@
-import { JSX } from "react";
 import { getData } from "../helpers/fetchHelper";
 import { User } from "../globalTypes";
 
 type NavBarProps = {
-  setPage: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
-  setLoggedInUser: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
+  setPage: Function;
+  setLoggedInUser: Function;
   loggedInUser: User | null;
 };
 

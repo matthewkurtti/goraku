@@ -1,10 +1,9 @@
-import { JSX } from "react";
 import { postData } from "../helpers/fetchHelper";
 import { User } from "../globalTypes";
 
 type SignUpPageProps = {
-  setPage: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
-  setLoggedInUser: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
+  setPage: Function;
+  setLoggedInUser: Function;
   loggedInUser: User | null;
 };
 

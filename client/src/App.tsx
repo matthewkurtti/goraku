@@ -11,19 +11,15 @@ import { Card, User, Deck } from "./globalTypes";
 import { getData } from "./helpers/fetchHelper";
 import NavBar from "./components/NavBar";
 
-enum PageView {
-  HomePage = "HOME_PAGE",
-}
-
 function App() {
   // useStates and variables
   const url: string =
     process.env.NODE_ENV === "production" ? "/" : "http://localhost:8080/";
   const [page, setPage] = useState<string>("");
   const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
-  const [decks, setDecks] = useState<Deck[] | null>(null);
-  const [cards, setCards] = useState<Card[] | null>(null);
-  const [selectedDeck, setSelectedDeck] = useState<Deck | null>();
+  const [decks, setDecks] = useState<Deck[]>([]);
+  const [cards, setCards] = useState<Card[]>([]);
+  const [selectedDeck, setSelectedDeck] = useState<Deck | null>(null);
 
   // helper function
 
@@ -48,6 +44,7 @@ function App() {
 
   useEffect(() => {
     checkIfLoggedIn();
+    console.log(cards);
   }, [page]);
 
   return (
@@ -79,29 +76,14 @@ function App() {
         </>
       ) : page === "listofcards" && loggedInUser ? (
         <>
-          <NavBar
-            setPage={setPage}
-            setLoggedInUser={setLoggedInUser}
-            loggedInUser={loggedInUser}
-          />
-          <ListOfCardsPage cards={cards} />
+          <ListOfCardsPage />
         </>
       ) : page === "study" && loggedInUser ? (
         <>
-          <NavBar
-            setPage={setPage}
-            setLoggedInUser={setLoggedInUser}
-            loggedInUser={loggedInUser}
-          />
           <StudyPage />
         </>
       ) : page === "addnewcard" && loggedInUser ? (
         <>
-          <NavBar
-            setPage={setPage}
-            setLoggedInUser={setLoggedInUser}
-            loggedInUser={loggedInUser}
-          />
           <AddNewCardPage />
         </>
       ) : page === "signup" ? (

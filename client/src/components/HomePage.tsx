@@ -1,14 +1,14 @@
-import { JSX, useEffect } from "react";
+import { useEffect } from "react";
 import { User, Deck } from "../globalTypes";
 import { getData } from "../helpers/fetchHelper";
 
 type HomePageProps = {
-  setPage: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
-  setLoggedInUser: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
+  setPage: Function;
+  setLoggedInUser: Function;
   loggedInUser: User | null;
   decks: Deck[] | null;
-  setDecks: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
-  setSelectedDeck: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
+  setDecks: Function;
+  setSelectedDeck: Function;
 };
 
 const HomePage: React.FC<HomePageProps> = (props) => {
