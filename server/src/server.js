@@ -30,6 +30,8 @@ const { translateText } = require("./googleApiTranslate.js");
 const app = express();
 const port = process.env.PORT || 8080;
 
+app.set("trust proxy", 1);
+
 // --------------- Middleware -------------
 if (!process.env.NODE_ENV) {
   app.use(
