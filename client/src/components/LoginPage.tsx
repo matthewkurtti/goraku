@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { JSX } from "react/jsx-runtime";
-import { postData } from "../helpers/fetchHelper";
+import { getData, postData } from "../helpers/fetchHelper";
+import { User } from "../globalTypes";
 
 type LoginPageProps = {
   setPage: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
   setLoggedInUser: React.Dispatch<React.SetStateAction<JSX.Element | null>>;
+  loggedInUser: User | null;
 };
 
 const LoginPage: React.FC<LoginPageProps> = (props) => {
@@ -13,6 +15,18 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
     import.meta.env.MODE === "development" ? "http://localhost:8080/" : "/";
 
   // useStates and variables
+
+  // useEffect
+  useEffect(() => {
+    logOutPreviousSession();
+  }, []);
+
+  const logOutPreviousSession = async () => {
+    if (props.loggedInUser) {
+      const response = await getData(url, "api/auth/logout");
+      console.log(response);
+    }
+  };
 
   // handlers
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -33,7 +47,6 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
     };
 
     const response = await postData(url, "api/auth/login", loginReqObjBody);
-    console.log(response);
     if (response.message === "Login successful") {
       const newLoggedInUserObj = {
         id: response.userId,
@@ -64,10 +77,21 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
               <input id="username" className="bg-white" type="text" />
               <label htmlFor="">Password</label>
               <input id="password" className="bg-white" type="text" />
-              <button className="bg-secondary-accent m-2" type="submit">
+              <button
+                className="bg-secondary-accent m-2 cursor-pointer"
+                type="submit"
+              >
                 Submit
               </button>
             </form>
+            <a
+              className="hover:text-secondary-accent cursor-pointer"
+              onClick={() => {
+                props.setPage("signup");
+              }}
+            >
+              No account? Sign up today!
+            </a>
           </div>
         </div>
       </main>

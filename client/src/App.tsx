@@ -105,9 +105,17 @@ function App() {
           <AddNewCardPage />
         </>
       ) : page === "signup" ? (
-        <SignUpPage />
+        <SignUpPage
+          setPage={setPage}
+          setLoggedInUser={setLoggedInUser}
+          loggedInUser={loggedInUser}
+        />
       ) : (
-        <LoginPage setPage={setPage} setLoggedInUser={setLoggedInUser} />
+        <LoginPage
+          setPage={setPage}
+          setLoggedInUser={setLoggedInUser}
+          loggedInUser={loggedInUser}
+        />
       )}
     </>
   );
