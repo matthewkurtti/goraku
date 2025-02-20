@@ -45,6 +45,8 @@ const SignUpPage: React.FC<SignUpPageProps> = (props) => {
     };
 
     const response = await postData(url, "api/auth/register", signUpReqObjBody);
+    console.log(response);
+
     if (response.message === "User registered successfully") {
       // const newRegisteredUserObj = {
       //   id: response.id,

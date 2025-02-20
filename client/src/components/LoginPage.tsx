@@ -46,6 +46,8 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
     };
 
     const response = await postData(url, "api/auth/login", loginReqObjBody);
+    console.log(response);
+
     if (response.message === "Login successful") {
       const newLoggedInUserObj = {
         id: response.userId,

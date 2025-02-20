@@ -38,13 +38,10 @@ function App() {
   };
 
   // useEffects
-  useEffect(() => {
-    checkIfLoggedIn();
-  }, []);
 
   useEffect(() => {
     checkIfLoggedIn();
-    console.log(cards);
+    // console.log(cards);
   }, [page]);
 
   return (
