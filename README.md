@@ -30,4 +30,33 @@ npm run dev
 
 ### Backend
 
-4. 
+4. Navigate to the server and install dependencies
+```console
+cd ../server
+npm install
+```
+5. To start the server, run:
+```console
+npm start
+```
+
+### Database
+Before the server can run, the database and environment will need to be setup
+
+6. Go into your local postgres and create the database:
+```console
+CREATE DATABASE goraku;
+```
+
+7. In the server directory, create a .env.local file with the following fields:
+```console
+DB_USER=<your local computer's postgres user>
+DB_PASSWORD=<your local computer's postgres password>
+DB_NAME=goraku
+DB_HOST=localhost
+DB_PORT=5432
+SESSION_SECRET=<a session secret of your choice>
+```
+### Google APIs
+
+This project utilizes google speech to text and google translate api for the app's mvp feature. All the general routes for the server will work with the setup up to this point. However, in order for the speech to text and translate routes to work in the server, additional setup is necessary. These apis are accessed with a service account, and to access the service account, a secret credentials file is necessary. That file will not be posted here. If you would like to attempt to use the apis in your local setup, feel free to message me directly for access to the credentials file.
