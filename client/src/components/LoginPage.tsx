@@ -36,7 +36,7 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
     console.log(response);
     if (response.message === "Login successful") {
       const newLoggedInUserObj = {
-        id: response.id,
+        id: response.userId,
         username: response.username,
         email: response.email,
       };

@@ -25,10 +25,15 @@ const NavBar: React.FC<NavBarProps> = (props) => {
 
   return (
     <>
-      <nav className="bg-secondary-accent h-15 flex justify-between items-center">
-        <h1 className="text-3xl font-bold">GoRaku</h1>
+      <nav className="bg-secondary-accent h-15 flex justify-between items-center px-3">
+        <h1
+          className="text-3xl font-bold cursor-pointer"
+          onClick={() => props.setPage("homepage")}
+        >
+          GoRaku
+        </h1>
         <h1 className="text-3x1">Welcome {props.loggedInUser?.username}</h1>
-        <h1 onClick={handleLogOut} className="text-3xl">
+        <h1 onClick={handleLogOut} className="text-3xl cursor-pointer">
           Logout
         </h1>
       </nav>

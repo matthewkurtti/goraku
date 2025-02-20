@@ -7,9 +7,13 @@ import ListOfCardsPage from "./components/ListOfCardsPage";
 import StudyPage from "./components/StudyPage";
 import SignUpPage from "./components/SignUpPage";
 import LoginPage from "./components/LoginPage";
-import { User } from "./globalTypes";
+import { Card, User, Deck } from "./globalTypes";
 import { getData } from "./helpers/fetchHelper";
 import NavBar from "./components/NavBar";
+
+enum PageView {
+  HomePage = "HOME_PAGE",
+}
 
 function App() {
   // useStates and variables
@@ -17,6 +21,9 @@ function App() {
     process.env.NODE_ENV === "production" ? "/" : "http://localhost:8080/";
   const [page, setPage] = useState<string>("");
   const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
+  const [decks, setDecks] = useState<Deck[] | null>(null);
+  const [cards, setCards] = useState<Card[] | null>(null);
+  const [selectedDeck, setSelectedDeck] = useState<Deck | null>();
 
   // helper function
 
@@ -46,19 +53,57 @@ function App() {
   return (
     <>
       {page === "homepage" && loggedInUser ? (
-        <HomePage
-          setPage={setPage}
-          setLoggedInUser={setLoggedInUser}
-          loggedInUser={loggedInUser}
-        />
+        <>
+          <NavBar
+            setPage={setPage}
+            setLoggedInUser={setLoggedInUser}
+            loggedInUser={loggedInUser}
+          />
+          <HomePage
+            setPage={setPage}
+            setLoggedInUser={setLoggedInUser}
+            loggedInUser={loggedInUser}
+            decks={decks}
+            setDecks={setDecks}
+            setSelectedDeck={setSelectedDeck}
+          />
+        </>
       ) : page === "deckpage" && loggedInUser ? (
-        <DeckPage />
+        <>
+          <NavBar
+            setPage={setPage}
+            setLoggedInUser={setLoggedInUser}
+            loggedInUser={loggedInUser}
+          />
+          <DeckPage selectedDeck={selectedDeck} setCards={setCards} />
+        </>
       ) : page === "listofcards" && loggedInUser ? (
-        <ListOfCardsPage />
+        <>
+          <NavBar
+            setPage={setPage}
+            setLoggedInUser={setLoggedInUser}
+            loggedInUser={loggedInUser}
+          />
+          <ListOfCardsPage cards={cards} />
+        </>
       ) : page === "study" && loggedInUser ? (
-        <StudyPage />
+        <>
+          <NavBar
+            setPage={setPage}
+            setLoggedInUser={setLoggedInUser}
+            loggedInUser={loggedInUser}
+          />
+          <StudyPage />
+        </>
       ) : page === "addnewcard" && loggedInUser ? (
-        <AddNewCardPage />
+        <>
+          <NavBar
+            setPage={setPage}
+            setLoggedInUser={setLoggedInUser}
+            loggedInUser={loggedInUser}
+          />
+          <AddNewCardPage />
+        </>
       ) : page === "signup" ? (
         <SignUpPage />
       ) : (
