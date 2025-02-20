@@ -41,7 +41,7 @@ function App() {
 
   useEffect(() => {
     checkIfLoggedIn();
-    // console.log(cards);
+    console.log(cards);
   }, [page]);
 
   return (
